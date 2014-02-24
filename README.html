@@ -1,0 +1,31 @@
+<h1 id="flycheck-hdevtools">flycheck-hdevtools</h1>
+<p>This library provides a <a href="https://github.com/flycheck/flycheck">flycheck</a> checker for Haskell source code using <a href="https://github.com/bitc/hdevtools">hdevtools</a>. The checker was split out from the main <code>flycheck</code> codebase at the end of November 2013 due to <a href="https://github.com/flycheck/flycheck/issues/275">various issues</a>.</p>
+<p><code>hdevtools</code> is a syntax and type checker which caches information in persistent background daemons, and thus checks faster than plain GHC.</p>
+<h2 id="installation">Installation</h2>
+<p>You'll need Emacs 24 for <code>flycheck</code>, so the recommended way to get <code>flycheck-hdevtools</code> is as a package from the <a href="http://melpa.milkbox.net">MELPA</a> repository. The version of <code>haskell-hdevtools</code> there will always be up-to-date. There are also packages in <a href="http://marmalade-repo.org">Marmalade</a>, which track the <a href="https://github.com/flycheck/flycheck-hdevtools/tags">latest numbered tag</a>.</p>
+<p>If you insist on doing things the hard way, first ensure <code>flycheck</code> is installed, then download this code and add the directory to your Emacs <code>load-path</code>.</p>
+<p>Then, in your <code>init.el</code>:</p>
+<pre class="lisp"><code>(eval-after-load &#39;flycheck
+  &#39;(require &#39;flycheck-hdevtools))</code></pre>
+<p>Make sure that the <code>hdevtools</code> binary is present on Emacs' <code>exec-path</code>, or customize <code>flycheck-haskell-hdevtools-executable</code> to point to the <code>hdevtools</code> binary.</p>
+<h2 id="usage">Usage</h2>
+<p>When <code>flycheck</code> is enabled (e.g. with <code>global-flycheck-mode</code>), Haskell buffers will be automatically checked using this checker.</p>
+<p>Use Flycheck in cabal project and write the options to pass to ghc into a file .ghc-options. Reference to directory are relative to the directory where the cabal file is found.</p>
+<p>Example of <code>.ghc-options</code> file (you have a test directory and the library use a flag <code>-DTEST_EXPORT</code> to expose functions for tests, as in [shakespeare] (https://github.com/yesodweb/shakespeare/tree/master/shakespeare) ):</p>
+<pre><code>-itest -cpp -optP-include -optPdist/build/autogen/cabal_macros.h -optP-DTEST_EXPORT </code></pre>
+<p>From time to time, you may need to restart <code>hdevtools</code> from the shell:</p>
+<pre><code>hdevtools admin stop-server
+hdevtools admin start-server</code></pre>
+<h2 id="license">License</h2>
+<p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p>
+<p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
+<p>You should have received a copy of the GNU General Public License along with this program. If not, see http://www.gnu.org/licenses/.</p>
+<p>See <a href="https://github.com/flycheck/flycheck-hdevtools/blob/master/COPYING">COPYING</a> for details.</p>
+<h2 id="about">About</h2>
+<p><code>flycheck-hdevtools</code> is code originally submitted to <code>flycheck</code> by <a href="https://github.com/purcell">Steve Purcell</a>.</p>
+<hr>
+
+<p>Author links:</p>
+<p><a href="http://coderwall.com/purcell"><img src="http://api.coderwall.com/purcell/endorsecount.png" /></a></p>
+<p><a href="http://uk.linkedin.com/in/stevepurcell"><img src="http://www.linkedin.com/img/webpromo/btn_liprofile_blue_80x15.png" /></a></p>
+<p><a href="http://www.sanityinc.com/">Steve Purcell's blog</a> // <span class="citation">[@sanityinc on Twitter]</span>(https://twitter.com/sanityinc)</p>

@@ -39,6 +39,24 @@ Usage
 When `flycheck` is enabled (e.g. with `global-flycheck-mode`), Haskell
 buffers will be automatically checked using this checker.
 
+
+Use Flycheck in cabal project and write the options to pass to ghc into a file .ghc-options.
+Reference to directory are relative to the directory where the cabal file is found.
+
+Example of `.ghc-options` file (here, you have a test directory and the library use a flag `-DTEST_EXPORT` to expose functions for tests, as in https://github.com/yesodweb/shakespeare/tree/master/shakespeare):
+
+```
+-itest -cpp -optP-include -optPdist/build/autogen/cabal_macros.h -optP-DTEST_EXPORT 
+```
+
+From time to time, you may need to restart `hdevtools` from the shell:
+
+```
+hdevtools admin stop-server
+hdevtools admin start-server
+```
+
+
 License
 -------
 
